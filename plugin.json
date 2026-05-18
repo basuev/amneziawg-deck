@@ -1,0 +1,11 @@
+{
+  "name": "AmneziaWG",
+  "author": "timofeybasuev",
+  "flags": ["root"],
+  "api_version": 1,
+  "publish": {
+    "tags": ["vpn", "network", "amneziawg", "wireguard"],
+    "description": "Connect to your AmneziaWG (obfuscated WireGuard) VPN from Steam Deck Game Mode. One-toggle UI with handshake/RX/TX status. Drop your wg0.conf exported from the Amnezia desktop client into the plugin's configs/ folder.",
+    "image": ""
+  }
+}

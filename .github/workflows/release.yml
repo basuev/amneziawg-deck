@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: AmneziaWG
+          path: ./
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin
+          path: bin/
+      - name: Compute SHA256
+        run: sha256sum AmneziaWG.zip bin/* > SHA256SUMS
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            AmneziaWG.zip
+            SHA256SUMS
+          generate_release_notes: true
+          body: |
+            ## Install / Update
+
+            In Decky → Settings → Developer → **Install Plugin from URL**, paste:
+
+            ```
+            https://github.com/${{ github.repository }}/releases/latest/download/AmneziaWG.zip
+            ```
+
+            This URL is permanent — paste it again on future updates and Decky pulls the latest release. Your `.conf` files in `~/homebrew/settings/AmneziaWG/configs/` survive updates.
+
+            First-time setup: export an AmneziaWG `.conf` from the Amnezia desktop client and drop it into `/home/deck/homebrew/settings/AmneziaWG/configs/`. Then open QAM → AmneziaWG → toggle ON.
+
+            Verify integrity against `SHA256SUMS`.

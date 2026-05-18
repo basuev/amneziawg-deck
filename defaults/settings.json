@@ -1,0 +1,7 @@
+{
+  "iface": "wg0",
+  "poll_interval_s": 2,
+  "stale_handshake_s": 180,
+  "stale_reup_throttle_s": 60,
+  "subproc_timeout_s": 10
+}
