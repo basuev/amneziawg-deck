@@ -2,6 +2,7 @@ node_modules/
 dist/
 .stage/
 *.zip
+/SHA256SUMS
 
 bin/amneziawg-go
 bin/awg
