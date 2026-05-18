@@ -9,11 +9,10 @@ One-toggle AmneziaWG VPN client for Steam Deck Game Mode. Adds a Quick Access Me
 ## Install
 
 1. On the Deck (Desktop Mode, one-time): install [Decky Loader](https://decky.xyz).
-2. In QAM (Game Mode): **Decky → Settings → Developer → Install Plugin from URL** → paste:
-   ```
-   https://github.com/basuev/amneziawg-deck/releases/latest/download/AmneziaWG.zip
-   ```
-   The URL is permanent — it always 302-redirects to the newest release.
+2. In QAM (Game Mode): **Decky → Settings → Developer → Install Plugin from URL** → paste either form (both 302-redirect to the latest release zip):
+
+   - Short (easy to type on the Deck keyboard): `clck.ru/3ThymB`
+   - Full: `https://github.com/basuev/amneziawg-deck/releases/latest/download/AmneziaWG.zip`
 3. Drop your `.conf` (see below) into `/home/deck/homebrew/settings/AmneziaWG/configs/`.
 4. Open QAM → **AmneziaWG** → toggle ON.
 

@@ -43,6 +43,30 @@ function LogsModalInner({ closeModal }: { closeModal?: () => void }) {
   );
 }
 
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    /* fall through to fallback */
+  }
+  try {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.style.position = "fixed";
+    el.style.opacity = "0";
+    document.body.appendChild(el);
+    el.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(el);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
 function UpdateUrlModal({
   url,
   closeModal,
@@ -50,6 +74,8 @@ function UpdateUrlModal({
   url: string;
   closeModal?: () => void;
 }) {
+  const [copied, setCopied] = useState(false);
+
   return (
     <ConfirmModal
       strTitle="Update available"
@@ -58,16 +84,26 @@ function UpdateUrlModal({
       onOK={closeModal}
     >
       <div style={{ fontSize: fontSize.body, lineHeight: 1.4 }}>
-        In Decky: <b>Settings → Developer → Install Plugin from URL</b>, paste:
+        Decky → <b>Settings → Developer → Install Plugin from URL</b>, paste:
         <div
           style={{
             fontSize: fontSize.mono,
             marginTop: 8,
+            marginBottom: 8,
             wordBreak: "break-all",
           }}
         >
           {url}
         </div>
+        <ButtonItem
+          layout="below"
+          onClick={async () => {
+            const ok = await copyToClipboard(url);
+            setCopied(ok);
+          }}
+        >
+          {copied ? "Copied" : "Copy URL"}
+        </ButtonItem>
       </div>
     </ConfirmModal>
   );
